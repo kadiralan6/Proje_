@@ -1,0 +1,112 @@
+﻿@using Proje_.Models
+
+@{
+    ViewBag.Title = "Ürün Listesi";
+}
+
+
+<script src="~/Scripts/angular.min.js"></script>
+
+<script src="~/Scripts/Angular/ProductAngularJs.js"></script>
+
+<div>
+    <button type="button" class=" btn btn-primary" data-toggle="modal" data-target="#Modal1">Ürün Ekle</button>
+</div>
+<br/>
+<div ng-app="Productapp" ng-controller="ProductController">
+    <div>
+        <label>Ürün Adı</label>
+        <input type="text" ng-model="search_name" value=""/>
+        <button type="button" class=" btn btn-primary" ng-click="search_data()">Ara</button>
+    </div>
+
+    <h2>@ViewBag.Title</h2>
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th> No </th>
+                                    <th> Ürün Adı</th>
+                                    <th> Ürün Türü </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+
+                                @* record kayıtların getirildiği nesnedir. *@
+                                <tr ng-repeat="product in products" ng-class-even="'even'" ng-class-odd="'odd'">
+                                    <td>{{product.pID}}</td>
+                                    <td>{{product.pName}}</td>
+                                    <td>{{product.PType}}</td>
+                                    <td>
+                                        <button type="button" class=" btn btn-success" data-toggle="modal" data-target="#Modal2" ng-click="getDataById(product.pID)">Düzenle</button>
+
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal" id="Modal1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Ürün Ekleme Ekranı</h2>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <label>Ürün Adı</label>
+                        <input ng-model="product.pName" type="text" name="pName" class="form-control" /><br />
+
+                        <label>Ürün Tipi</label>
+                        <input ng-model="product.PType" type="text" name="PType" class="form-control" /><br />
+
+                        <button class="btn btn-info" ng-click="saveproduct()">Kaydet</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-danger" ng-click="clear_data()">Vazgeç</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal" id="Modal2">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Ürün Güncelleme Ekranı</h2>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <input style="display:none" type="text" ng-model="product.pID" name="pID" class="form-control" readonly /><br />
+
+                        <label>Ürün Adı</label>
+                        <input type="text" ng-model="product.pName" name="pName" class="form-control" /><br />
+
+                        <label>Ürün Tipi</label>
+                        <input type="text" ng-model="product.PType" name="PType" class="form-control" /><br />
+
+                        <button class="btn btn-info" ng-click="updatedata()">Güncelle</button>
+                        <button  data-dismiss="modal" class="btn btn-danger" ng-click="clear_data()">Vazgeç</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+   
+
